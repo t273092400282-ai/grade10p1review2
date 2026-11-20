@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مراجعة اختبار الحاسوب - الصف العاشر (الجزء الثاني)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f7f4f9;
+            --card-bg: #ffffff;
+            --primary-soft: #9c7ca5;
+            --primary-dark: #7a5c83;
+            --accent-mint: #6bb39b;
+            --accent-peach: #e8998d;
+            --text-dark: #3a323d;
+            --text-muted: #6e6373;
+            --border-soft: #e6dfec;
+            --pycharm-bg: #2b2b2b;
+            --pycharm-sidebar: #313335;
+            --pycharm-header: #3c3f41;
+            --pycharm-text: #a9b7c6;
+            --pycharm-keyword: #cc7832;
+            --pycharm-string: #6a8759;
+            --pycharm-func: #ffc66d;
+            --pycharm-number: #6897bb;
+            --pycharm-console: #1e1f22;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #f3eef7 50%, #eef6f4 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(156, 124, 165, 0.12);
+            border: 2px solid var(--border-soft);
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #b892c2, #89c9b8, #f2b5a7);
+        }
+
+        .badge-top {
+            display: inline-block;
+            background: #f3eaf7;
+            color: var(--primary-dark);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .header-card p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 22px;
+        }
+
+        /* Student Info Grid */
+        .student-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            background: #faf7fc;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px dashed #d3c2dc;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid #dcd0e4;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            background: #fff;
+            color: var(--text-dark);
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--primary-soft);
+            box-shadow: 0 0 0 3px rgba(156, 124, 165, 0.15);
+        }
+
+        /* Floating Score Bar */
+        .score-bar {
+            position: sticky;
+            top: 12px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border: 2px solid #e2d6ea;
+            border-radius: 16px;
+            padding: 12px 22px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .score-display {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .score-pill {
+            background: linear-gradient(135deg, var(--primary-soft), var(--primary-dark));
+            color: white;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .progress-wrapper {
+            flex: 1;
+            max-width: 300px;
+            margin: 0 20px;
+            background: #ede6f2;
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-mint), var(--primary-soft));
+            transition: width 0.4s ease;
+        }
+
+        /* Question Card */
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(122, 92, 131, 0.07);
+            border: 1.5px solid var(--border-soft);
+            transition: transform 0.2s;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .q-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .q-num {
+            background: #f2eaf6;
+            color: var(--primary-dark);
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.05rem;
+        }
+
+        .q-topic {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+        }
+
+        .q-grade {
+            background: #eef7f4;
+            color: #3e7c67;
+            border: 1px solid #cce7de;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .q-prompt {
+            font-size: 1.08rem;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            background: #fbf9fc;
+            padding: 12px 16px;
+            border-right: 4px solid var(--primary-soft);
+            border-radius: 8px;
+        }
+
+        /* PyCharm IDE Mockup */
+        .pycharm-window {
+            direction: ltr;
+            text-align: left;
+            background: var(--pycharm-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            border: 1px solid #45484a;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .pycharm-topbar {
+            background: var(--pycharm-header);
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #262829;
+        }
+
+        .pycharm-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #dfe1e5;
+            font-size: 0.82rem;
+            background: #2b2b2b;
+            padding: 4px 12px;
+            border-radius: 6px 6px 0 0;
+            border-top: 2px solid #4a88c7;
+        }
+
+        .py-icon {
+            color: #4a88c7;
+            font-weight: bold;
+        }
+
+        .pycharm-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .run-btn {
+            background: #365838;
+            color: #a9d18e;
+            border: 1px solid #4e7a51;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .run-btn:hover {
+            background: #436e46;
+            color: #ffffff;
+        }
+
+        .run-triangle {
+            color: #59a869;
+            font-size: 0.85rem;
+        }
+
+        .pycharm-editor {
+            display: flex;
+            padding: 14px 0;
+            min-height: 105px;
+        }
+
+        .line-numbers {
+            background: var(--pycharm-sidebar);
+            color: #606366;
+            padding: 0 12px;
+            text-align: right;
+            user-select: none;
+            font-size: 0.92rem;
+            line-height: 1.9;
+            border-right: 1px solid #3c3f41;
+        }
+
+        .code-area {
+            flex: 1;
+            padding: 0 16px;
+            color: var(--pycharm-text);
+            font-size: 0.96rem;
+            line-height: 1.9;
+            letter-spacing: 0.3px;
+        }
+
+        .code-line {
+            min-height: 30px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .indent {
+            display: inline-block;
+            width: 32px;
+        }
+
+        .py-kw { color: var(--pycharm-keyword); font-weight: 600; }
+        .py-str { color: var(--pycharm-string); }
+        .py-fn { color: var(--pycharm-func); }
+        .py-num { color: var(--pycharm-number); }
+        .py-var { color: #a9b7c6; }
+
+        .code-input {
+            background: #3c3f41;
+            border: 1.5px solid #5c6166;
+            color: #ffffff;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.94rem;
+            padding: 4px 10px;
+            border-radius: 5px;
+            min-width: 150px;
+            flex: 1;
+            max-width: 390px;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .code-input.short-input {
+            max-width: 240px;
+            min-width: 130px;
+        }
+
+        .code-input:focus {
+            border-color: #4a88c7;
+            background: #45494c;
+        }
+
+        /* PyCharm Console Output */
+        .pycharm-console {
+            background: var(--pycharm-console);
+            border-top: 1px solid #3c3f41;
+            padding: 10px 14px;
+        }
+
+        .console-header {
+            font-size: 0.75rem;
+            color: #787b80;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .console-path {
+            color: #6a6e73;
+            font-size: 0.78rem;
+            margin-bottom: 4px;
+        }
+
+        .console-output {
+            color: #dfe1e5;
+            font-size: 0.92rem;
+            white-space: pre-wrap;
+            min-height: 22px;
+        }
+
+        .console-error {
+            color: #f75464;
+        }
+
+        .console-exit {
+            color: #6a6e73;
+            font-size: 0.76rem;
+            margin-top: 6px;
+        }
+
+        /* Feedback Box */
+        .feedback-box {
+            margin-top: 12px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feedback-correct {
+            display: flex;
+            background: #eaf7f2;
+            color: #276750;
+            border: 1px solid #bce3d4;
+        }
+
+        .feedback-wrong {
+            display: flex;
+            background: #fdf0ee;
+            color: #a63d33;
+            border: 1px solid #f4cbc6;
+        }
+
+        /* Bottom Action Panel */
+        .finish-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(156, 124, 165, 0.12);
+            border: 2px solid var(--border-soft);
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .finish-card h2 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .finish-card p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-soft), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 13px 26px;
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(122, 92, 131, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(122, 92, 131, 0.35);
+        }
+
+        .btn-secondary {
+            background: #eef7f4;
+            color: #2f6f58;
+            border: 1.5px solid #bfe2d5;
+            padding: 13px 24px;
+            border-radius: 12px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #dff0ea;
+        }
+
+        .teacher-email-box {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2d6ea;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .teacher-email-box input {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #d5c7df;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            direction: ltr;
+            width: 265px;
+            background: #faf7fc;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Print / PDF Styles */
+        @media print {
+            body {
+                background: #ffffff !important;
+                padding: 0;
+            }
+            .score-bar {
+                position: static;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            .run-btn, .finish-card {
+                display: none !important;
+            }
+            .question-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+                margin-bottom: 16px;
+            }
+            .pycharm-window {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .feedback-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header & Student Info -->
+    <div class="header-card">
+        <div class="badge-top">مادة الحاسوب وتقنية المعلومات • الصف العاشر</div>
+        <h1>مراجعة الاختبار التفاعلية (الجزء الثاني)</h1>
+        <p class="subtitle">إعداد المعلمة: أ. هند الراشد | أكملي التعليمات البرمجية في بيئة PyCharm وشغّلي البرنامج</p>
+
+        <div class="student-info">
+            <div class="input-group">
+                <label for="studentName">اسم المتعلمة الثلاثي:</label>
+                <input type="text" id="studentName" placeholder="اكتبي اسمكِ هنا...">
+            </div>
+            <div class="input-group">
+                <label for="studentClass">الصف / الشعبة:</label>
+                <select id="studentClass">
+                    <option value="">اختاري الصف...</option>
+                    <option value="عاشر / 1">عاشر / 1</option>
+                    <option value="عاشر / 2">عاشر / 2</option>
+                    <option value="عاشر / 3">عاشر / 3</option>
+                    <option value="عاشر / 4">عاشر / 4</option>
+                    <option value="عاشر / 5">عاشر / 5</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Score Bar -->
+    <div class="score-bar">
+        <div class="score-display">
+            الدرجة النهائية: <span class="score-pill" id="totalScore">0 / 10</span>
+        </div>
+        <div class="progress-wrapper">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 700;" id="solvedCount">
+            تم حل 0 من 10 أسئلة
+        </div>
+    </div>
+
+    <!-- Questions Container -->
+    <div id="questionsList"></div>
+
+    <!-- Finish & Export Card -->
+    <div class="finish-card">
+        <h2>هل انتهيتِ من حل جميع الأسئلة يا مبدعة؟ 🌸</h2>
+        <p>اضغطي على زر <strong>"حفظ العمل كملف PDF وإرساله للمعلمة"</strong> لحفظ ورقة عملكِ مع الدرجات ونتائج التشغيل، ثم أرفقي الملف في رسالة البريد الإلكتروني.</p>
+        
+        <div class="action-buttons">
+            <button class="btn-primary" onclick="checkAllAndExport()">📄 حفظ العمل كملف PDF وإرساله للمعلمة</button>
+            <button class="btn-secondary" onclick="checkAllOnly()">✅ تصحيح جميع الأسئلة الآن</button>
+        </div>
+
+        <div class="teacher-email-box">
+            <span>البريد الإلكتروني للمعلمة أ. هند الراشد:</span>
+            <input type="email" id="teacherEmail" value="T273092400282@moe.edu.kw" readonly>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            id: 1,
+            file: "ex99.py",
+            topic: "طول السلسلة النصية len()",
+            prompt: "أكملي السطر الأول بتعريف المتغير <code>Bug</code> وتخزين القيمة النصية <code>'butterfly'</code> بداخله ليتم طباعة طول السلسلة النصية:",
+            lines: [
+                {
+                    type: "input",
+                    prefix: ``,
+                    suffix: ``,
+                    placeholder: "Bug = 'butterfly'",
+                    short: false
+                },
+                {
+                    type: "code",
+                    html: `<span class="py-fn">print</span>( <span class="py-fn">len</span>( <span class="py-var">Bug</span> ) )`
+                }
+            ],
+            expectedOutput: "9",
+            hint: "اكتبي: Bug = 'butterfly' مع الانتباه لحرف B الكبير وعلامات التنصيص.",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "Bug='butterfly'" || c === 'Bug="butterfly"';
+            }
+        },
+        {
+            id: 2,
+            file: "x10.py",
+            topic: "التكرار المحدد (for)",
+            prompt: "أكملي جملة التكرار <code>for</code> لطباعة أحرف المتغير <code>color</code> على التوالي:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">color</span> = <span class="py-str">'red'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: ``,
+                    suffix: ``,
+                    placeholder: "for ch in color:",
+                    short: false
+                },
+                {
+                    type: "code",
+                    html: `<span class="indent"></span><span class="py-fn">print</span>( <span class="py-var">ch</span> )`
+                }
+            ],
+            expectedOutput: "r\ne\nd",
+            hint: "اكتبي: for ch in color: ولا تنسي النقطتين الرأسيتين (:) في النهاية.",
+            validate: (code) => {
+                const c = code.trim().replace(/\s+/g, ' ');
+                return c === "for ch in color:" || c === "for ch in color :";
+            }
+        },
+        {
+            id: 3,
+            file: "x111.py",
+            topic: "تكرار النطاق range()",
+            prompt: "أكملي دالة النطاق <code>range</code> لطباعة الأرقام من 3 إلى 6 على التوالي:",
+            lines: [
+                {
+                    type: "input",
+                    prefix: `<span class="py-kw">for</span> <span class="py-var">n</span> <span class="py-kw">in</span> `,
+                    suffix: `<span>:</span>`,
+                    placeholder: "range(3, 7)",
+                    short: true
+                },
+                {
+                    type: "code",
+                    html: `<span class="indent"></span><span class="py-fn">print</span>( <span class="py-var">n</span> )`
+                }
+            ],
+            expectedOutput: "3\n4\n5\n6",
+            hint: "اكتبي: range(3, 7) لطباعة الأرقام من 3 إلى 6.",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "range(3,7)";
+            }
+        },
+        {
+            id: 4,
+            file: "ex99_upper.py",
+            topic: "دالة upper()",
+            prompt: "أكملي تعليمة الطباعة بكتابة الدالة المناسبة لتحويل أحرف كلمة <code>butterfly</code> إلى أحرف كبيرة:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">Bug</span> = <span class="py-str">'butterfly'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( `,
+                    suffix: ` <span>)</span>`,
+                    placeholder: "Bug.upper()",
+                    short: true
+                }
+            ],
+            expectedOutput: "BUTTERFLY",
+            hint: "اكتبي داخل أقواس الطباعة: Bug.upper()",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "Bug.upper()";
+            }
+        },
+        {
+            id: 5,
+            file: "ex5.py",
+            topic: "دالة lower()",
+            prompt: "أكملي تعليمة الطباعة بكتابة الدالة المناسبة لتحويل أحرف كلمة <code>BANANA</code> إلى أحرف صغيرة:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">fruit</span> = <span class="py-str">'BANANA'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( `,
+                    suffix: ` <span>)</span>`,
+                    placeholder: "fruit.lower()",
+                    short: true
+                }
+            ],
+            expectedOutput: "banana",
+            hint: "اكتبي داخل أقواس الطباعة: fruit.lower()",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "fruit.lower()";
+            }
+        },
+        {
+            id: 6,
+            file: "ex2222.py",
+            topic: "دالة capitalize()",
+            prompt: "أكملي تعليمة الطباعة بكتابة الدالة التي تحول الحرف الأول فقط في كلمة <code>happy</code> إلى حرف كبير:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">mood</span> = <span class="py-str">'happy'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( `,
+                    suffix: ` <span>)</span>`,
+                    placeholder: "mood.capitalize()",
+                    short: true
+                }
+            ],
+            expectedOutput: "Happy",
+            hint: "اكتبي داخل أقواس الطباعة: mood.capitalize()",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "mood.capitalize()";
+            }
+        },
+        {
+            id: 7,
+            file: "ex3.py",
+            topic: "دالة center()",
+            prompt: "أكملي المعاملات داخل دالة <code>center()</code> لجعل كلمة <code>kuwait</code> تتوسط 12 نجمة <code>*</code>:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">country</span> = <span class="py-str">'kuwait'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( <span class="py-var">country</span>.<span class="py-fn">center</span>( `,
+                    suffix: ` <span>) )</span>`,
+                    placeholder: "12, '*'",
+                    short: true
+                }
+            ],
+            expectedOutput: "***kuwait***",
+            hint: "اكتبي داخل القوسين: 12, '*' مع وضع النجمة بين علامتي تنصيص.",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "12,'*'" || c === '12,"*"';
+            }
+        },
+        {
+            id: 8,
+            file: "x3333.py",
+            topic: "دالة count()",
+            prompt: "أكملي السطر الثاني لحساب عدد الأصفار في المتغير <code>money</code> وطباعته:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">money</span> = <span class="py-str">'30000000KD'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( <span class="py-var">money</span>.`,
+                    suffix: ` <span>)</span>`,
+                    placeholder: "count('0')",
+                    short: true
+                }
+            ],
+            expectedOutput: "7",
+            hint: "اكتبي: count('0') مع وضع الصفر بين علامتي تنصيص.",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "count('0')" || c === 'count("0")';
+            }
+        },
+        {
+            id: 9,
+            file: "x3334.py",
+            topic: "دالة replace()",
+            prompt: "أكملي دالة الاستبدال لاستبدال اللون الأحمر <code>'red'</code> باللون الأصفر <code>'yellow'</code> في النص:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">dress</span> = <span class="py-str">'i will buy the red dress i like it'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( <span class="py-var">dress</span>.`,
+                    suffix: ` <span>)</span>`,
+                    placeholder: "replace('red', 'yellow')",
+                    short: false
+                }
+            ],
+            expectedOutput: "i will buy the yellow dress i like it",
+            hint: "اكتبي: replace('red', 'yellow')",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "replace('red','yellow')" || c === 'replace("red","yellow")';
+            }
+        },
+        {
+            id: 10,
+            file: "ex444.py",
+            topic: "دالة find() / الفهرس",
+            prompt: "أكملي السطر الثاني لإيجاد مكان الرمز <code>'@'</code> في فهرس الإيميل وطباعته:",
+            lines: [
+                {
+                    type: "code",
+                    html: `<span class="py-var">email</span> = <span class="py-str">'rawdaschool@gmail.com'</span>`
+                },
+                {
+                    type: "input",
+                    prefix: `<span class="py-fn">print</span>( <span class="py-var">email</span>.`,
+                    suffix: ` <span>)</span>`,
+                    placeholder: "find('@')",
+                    short: true
+                }
+            ],
+            expectedOutput: "11",
+            hint: "اكتبي: find('@') أو index('@')",
+            validate: (code) => {
+                const c = code.replace(/\s+/g, '');
+                return c === "find('@')" || c === 'find("@")' ||
+                       c === "index('@')" || c === 'index("@")';
+            }
+        }
+    ];
+
+    const scores = new Array(questions.length).fill(0);
+    const attempted = new Array(questions.length).fill(false);
+
+    function renderQuestions() {
+        const container = document.getElementById('questionsList');
+        container.innerHTML = questions.map((q, index) => {
+            let lineNumsHtml = '';
+            let linesHtml = '';
+
+            q.lines.forEach((lineObj, lineIdx) => {
+                lineNumsHtml += `<div>${lineIdx + 1}</div>`;
+                if (lineObj.type === "code") {
+                    linesHtml += `<div class="code-line">${lineObj.html}</div>`;
+                } else {
+                    const inputClass = lineObj.short ? "code-input short-input" : "code-input";
+                    linesHtml += `
+                        <div class="code-line">
+                            ${lineObj.prefix}
+                            <input type="text" class="${inputClass}" id="input-${index}" 
+                                   placeholder="${lineObj.placeholder}" 
+                                   onkeydown="if(event.key==='Enter') runQuestion(${index})">
+                            ${lineObj.suffix}
+                        </div>
+                    `;
+                }
+            });
+
+            return `
+                <div class="question-card" id="card-${index}">
+                    <div class="q-header">
+                        <div class="q-title">
+                            <span class="q-num">${q.id}</span>
+                            <span class="q-topic">${q.topic}</span>
+                        </div>
+                        <span class="q-grade" id="grade-badge-${index}">الدرجة: 0 / 1</span>
+                    </div>
+                    <div class="q-prompt">${q.prompt}</div>
+
+                    <div class="pycharm-window">
+                        <div class="pycharm-topbar">
+                            <div class="pycharm-tab">
+                                <span class="py-icon">py</span>
+                                <span>${q.file}</span>
+                            </div>
+                            <div class="pycharm-actions">
+                                <button class="run-btn" onclick="runQuestion(${index})">
+                                    <span class="run-triangle">▶</span> تشغيل (Run)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="pycharm-editor">
+                            <div class="line-numbers">${lineNumsHtml}</div>
+                            <div class="code-area">${linesHtml}</div>
+                        </div>
+
+                        <div class="pycharm-console">
+                            <div class="console-header">Run: ${q.file.replace('.py', '')}</div>
+                            <div class="console-path">C:\\Users\\Student\\PycharmProjects\\Grade10\\venv\\Scripts\\python.exe</div>
+                            <div class="console-output" id="console-${index}">بانتظار تشغيل البرنامج...</div>
+                            <div class="console-exit" id="exit-${index}"></div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-box" id="feedback-${index}"></div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function runQuestion(index) {
+        const q = questions[index];
+        const userInput = document.getElementById(`input-${index}`).value.trim();
+        const consoleEl = document.getElementById(`console-${index}`);
+        const exitEl = document.getElementById(`exit-${index}`);
+        const feedbackEl = document.getElementById(`feedback-${index}`);
+        const gradeBadge = document.getElementById(`grade-badge-${index}`);
+
+        attempted[index] = true;
+
+        if (!userInput) {
+            consoleEl.className = "console-output console-error";
+            consoleEl.textContent = "SyntaxError: لم يتم إكمال التعليمة البرمجية في المكان المخصص!";
+            exitEl.textContent = "Process finished with exit code 1";
+            feedbackEl.className = "feedback-box feedback-wrong";
+            feedbackEl.innerHTML = `⚠️ يرجى إكمال التعليمة البرمجية أولاً ثم الضغط على زر التشغيل (Run).`;
+            scores[index] = 0;
+            gradeBadge.textContent = "الدرجة: 0 / 1";
+            updateScoreBar();
+            return;
+        }
+
+        if (q.validate(userInput)) {
+            consoleEl.className = "console-output";
+            consoleEl.textContent = q.expectedOutput;
+            exitEl.textContent = "Process finished with exit code 0";
+            feedbackEl.className = "feedback-box feedback-correct";
+            feedbackEl.innerHTML = `🌟 أحسنتِ يا بطلة! إجابة صحيحة وتم تنفيذ البرنامج بنجاح.`;
+            scores[index] = 1;
+            gradeBadge.textContent = "الدرجة: 1 / 1 ✅";
+            gradeBadge.style.background = "#d8f3e8";
+        } else {
+            consoleEl.className = "console-output console-error";
+            const errMsg = `Traceback (most recent call last):\n  File "${q.file}", line 2\n    ${userInput}\nSyntaxError / NameError: تحققي من كتابة الدالة أو الأقواس وعلامات التنصيص.`;
+            consoleEl.textContent = errMsg;
+            exitEl.textContent = "Process finished with exit code 1";
+            feedbackEl.className = "feedback-box feedback-wrong";
+            feedbackEl.innerHTML = `💡 حاولي مرة أخرى! تلميح: ${q.hint}`;
+            scores[index] = 0;
+            gradeBadge.textContent = "الدرجة: 0 / 1 ❌";
+            gradeBadge.style.background = "#fde8e6";
+        }
+
+        updateScoreBar();
+    }
+
+    function updateScoreBar() {
+        const total = scores.reduce((a, b) => a + b, 0);
+        const solved = attempted.filter(Boolean).length;
+        document.getElementById('totalScore').textContent = `${total} / ${questions.length}`;
+        document.getElementById('solvedCount').textContent = `تم حل ${solved} من ${questions.length} أسئلة`;
+        document.getElementById('progressBar').style.width = `${(total / questions.length) * 100}%`;
+    }
+
+    function checkAllOnly() {
+        for (let i = 0; i < questions.length; i++) {
+            runQuestion(i);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function checkAllAndExport() {
+        const name = document.getElementById('studentName').value.trim();
+        const sClass = document.getElementById('studentClass').value;
+
+        if (!name || !sClass) {
+            alert("يرجى كتابة اسمكِ واختيار الصف في أعلى الصفحة قبل حفظ الملف وإرساله!");
+            document.getElementById('studentName').focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
+        for (let i = 0; i < questions.length; i++) {
+            runQuestion(i);
+        }
+
+        const total = scores.reduce((a, b) => a + b, 0);
+        const teacherEmail = "T273092400282@moe.edu.kw";
+
+        const originalTitle = document.title;
+        document.title = `مراجعة_عاشر_${name}_${sClass}`;
+
+        alert(`سيتم الآن فتح نافذة حفظ العمل بصيغة PDF.\n\nالخطوة 1: اختاري "حفظ بتنسيق PDF" (Save as PDF) واحفظي الملف على جهازك.\nالخطوة 2: سيُفتح تطبيق البريد الإلكتروني لإرسال الملف إلى المعلمة (${teacherEmail}).`);
+
+        window.print();
+
+        document.title = originalTitle;
+
+        const subject = encodeURIComponent(`حل مراجعة اختبار الحاسوب (الجزء الثاني) - ${name} - ${sClass}`);
+        const body = encodeURIComponent(
+            `السلام عليكم ورحمة الله وبركاته أستاذة هند،\n\n` +
+            `مرفق لسيادتكم ملف PDF لحل نشاط مراجعة الاختبار التفاعلي (الجزء الثاني).\n\n` +
+            `اسم المتعلمة: ${name}\n` +
+            `الصف: ${sClass}\n` +
+            `الدرجة المحققة: ${total} من ${questions.length}\n\n` +
+            `(ملاحظة للمتعلمة: لا تنسي إرفاق ملف الـ PDF الذي قمتِ بحفظه للتو قبل الضغط على إرسال 📎)`
+        );
+
+        setTimeout(() => {
+            window.location.href = `mailto:${teacherEmail}?subject=${subject}&body=${body}`;
+        }, 800);
+    }
+
+    renderQuestions();
+</script>
+
+</body>
+</html>
